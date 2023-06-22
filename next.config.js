@@ -1,15 +1,10 @@
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
-  // exportPathMap: async function (
-  //   defaultPathMap,
-  //   { dev, dir, outDir, distDir, buildId }
-  // ) {
-  //   return {
-  //     '/': { page: '/index' },
-  //     '/pd/:slug': { page: '/product/detail'}
-  //   }
-  // },
+  i18n: {
+    locales: ['en-US', 'fr-FR', 'es-ES'],
+    defaultLocale: 'en-US',
+  },
   webpack: (
     config,
     { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }

@@ -1,0 +1,27 @@
+.login-card {
+  padding: 20px;
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.btn-container {
+  text-align: center;
+}
+
+.login-btn {
+  border-radius: 20px;
+  width: 100%;
+}
+
+.forget-password {
+  text-align: center;
+  font-size: 12px;
+  color: #9e9e9e;
+}
+
+@media(min-width: 768px) {
+  .login-btn {
+    width: auto;
+  }
+}

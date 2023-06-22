@@ -1,81 +1,51 @@
-import { useEffect } from "react";
-import FormList, { FormListType } from "@/components/FormList"
+import { useMemo, useContext } from "react";
+import FormList from "@/components/FormList"
 import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
 import { useForm } from 'react-hook-form';
-import dayjs from 'dayjs'
-
-type FormList = {
-  name: string,
-  label?: string,
-  type: "text" | "select" | "checkbox" | "radio" | "switch" | "custom",
-  defaultValue?: string | number,
-  component?: React.ComponentType
-}
-const formList: FormListType[] = [{
-  name: "username",
-  label: "Username",
-  type: "text",
-  rules: {
-    required: { value: true, message: "Username must be"}
-  }
-}, {
-  name: "sex",
-  label: "性别",
-  type: "checkbox",
-  selectList: [{
-    label: '男',
-    value: 'boy'
-  }, {
-    label: '女',
-    value: 'girl'
-  }],
-  rules: {
-    required: { value: true, message: "sex must be"}
-  }
-}, {
-  name: "fruits",
-  label: "性别",
-  type: "radio",
-  selectList: [{
-    label: '榴莲',
-    value: 'durian'
-  }, {
-    label: '香蕉',
-    value: 'bananer'
-  }],
-  rules: {
-    required: { value: true, message: "sex must be"}
-  }
-}, {
-  name: "datePick",
-  label: "我的时间",
-  type: "datePick",
-  rules: {
-    required: { value: true, message: "sex must be"}
-  }
-}]
-
+import Image from 'next/image';
+import useLocale from '@/utils/hooks/useLocale';
+import CommonContext from '@/contexts/common';
+import styles from './styles.module.css';
+import { getLoginFormList } from './config'
+import localContext from './i18n'
 
 export default function Login() {
-  const { handleSubmit, formState: { errors }, control } = useForm({
-    defaultValues: {
-      username: 'lala',
-      sex: ['girl'],
-      fruits: 'durian',
-      datePick: dayjs('1993-10-13')
-    }
-  });
+  const { handleSubmit, control } = useForm({});
+  const { loginPage_i18n } = useLocale(localContext)
+  const common = useContext(CommonContext)
 
-  useEffect(() => {
-
-  }, [])
+  const formList = useMemo(() => {
+    return getLoginFormList(loginPage_i18n)
+  }, [loginPage_i18n])
 
   const onSubmit = (data: any) => {
-    console.log('---', data, errors)
   }
 
   return <div>
-    <FormList formList={formList} control={control as any} />
-    <Button variant="contained" onClick={handleSubmit(onSubmit)}> AAA</Button>
+    <Paper elevation={4} className={styles['login-card']}>
+      <Grid container spacing={2} columns={12} direction={'row'}>
+        <Grid item xs={12} sm={5}>
+          <Stack spacing={{ xs: 1, sm: 2 }} direction="column"  flexWrap="wrap">
+            <FormList formList={formList} control={control} />
+          </Stack>
+          <p className={styles['forget-password']}>{loginPage_i18n.forgetPassword_i18n}</p>
+          <div className={styles['btn-container']}>
+            <Button className={styles['login-btn']} variant="contained" onClick={handleSubmit(onSubmit)}>Login</Button>
+          </div>
+        </Grid>
+        <Grid item xs={12} sm={7}>
+          <Image
+            src="/profile.png"
+            width={500}
+            height={500}
+            alt="Picture of the author"
+          />
+        </Grid>
+      </Grid>
+    </Paper>
+      {common && common.isMobile ? 'true' : 'false'}
   </div>
 }

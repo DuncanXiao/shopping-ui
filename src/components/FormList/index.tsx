@@ -1,19 +1,18 @@
 import React, { useState, useEffect, FC, memo } from 'react'
 import FormControlLabel, {FormControlLabelProps} from '@mui/material/FormControlLabel';
 import FormControl, {FormControlProps} from '@mui/material/FormControl';
-import FormGroup from '@mui/material/FormGroup';
+import FormGroup, { FormGroupProps } from '@mui/material/FormGroup';
 import FormLabel from '@mui/material/FormLabel';
-import Checkbox, { CheckboxProps } from '@mui/material/Checkbox';
+import Checkbox from '@mui/material/Checkbox';
 import FormHelperText from '@mui/material/FormHelperText';
-import Radio, { RadioProps } from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
+import Radio from '@mui/material/Radio';
+import RadioGroup, { RadioGroupProps } from '@mui/material/RadioGroup';
 import TextField, { TextFieldProps } from '@mui/material/TextField';
 import cloneDeep from 'lodash/cloneDeep';
 import { Controller, Control, RegisterOptions } from 'react-hook-form';
 import { DatePicker, DatePickerProps } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import dayjs from 'dayjs'
 
 export type FormListType = {
   name: string,
@@ -21,13 +20,15 @@ export type FormListType = {
   type: "text" | "select" | "checkbox" | "radio" | "custom" | "datePick",
   component?: FC,
   formControlLabelProps?: Omit<FormControlLabelProps, 'label' | 'control'>
-  typeProps?: CheckboxProps | RadioProps | TextFieldProps | DatePickerProps<any>,
+  typeProps?: TextFieldProps | DatePickerProps<any>,
   formControlProps?: FormControlProps,
   selectList?: {
     label: any,
     value: any
   }[],
   rules?: RegisterOptions;
+  radioGroupProps?: Omit<RadioGroupProps, 'value' | 'onChange'>;
+  formGroupProps?: FormGroupProps
 }
 
 interface FormListProps {
@@ -60,12 +61,12 @@ const FormList: FC<FormListProps> = (prop) => {
               }) => (
                 <FormControl component="fieldset" error={invalid}>
                   <FormLabel component="legend" >{item.label}</FormLabel>
-                  <FormGroup aria-label="position" row>
+                  <FormGroup aria-label="position" row {...item.formGroupProps}>
                     {
                       item.selectList && item.selectList.map((c) => {
-                        let defaultChecked = false
+                        let isChecked = false
                         if (Array.isArray(value)) {
-                          defaultChecked = value.includes(c.value)
+                          isChecked = value.includes(c.value)
                         }
                         return (
                           <FormControlLabel
@@ -83,7 +84,7 @@ const FormList: FC<FormListProps> = (prop) => {
                               }
                               onChange(tempFieldValue)
                             }}
-                            control={<Checkbox defaultChecked={defaultChecked} />}
+                            control={<Checkbox checked={isChecked} />}
                             label={c.label}
                             {...item.formControlLabelProps}
                           />
@@ -109,7 +110,7 @@ const FormList: FC<FormListProps> = (prop) => {
               }) => (
                 <FormControl component="fieldset" error={invalid}>
                   <FormLabel component="legend" >{item.label}</FormLabel>
-                  <RadioGroup onChange={onChange} defaultValue={value}>
+                  <RadioGroup onChange={onChange} value={value} row {...item.radioGroupProps}>
                     {
                       item.selectList && item.selectList.map((c) => (
                         <FormControlLabel
@@ -139,15 +140,18 @@ const FormList: FC<FormListProps> = (prop) => {
                 field: { onChange, onBlur, value, ref },
                 fieldState: { error, invalid }
               }) => (
-                <TextField
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  value={value || ''}
-                  ref={ref}
-                  size="small"
-                  error={invalid}
-                  helperText={error?.message}
-                  {...item.typeProps as TextFieldProps} />
+                <FormControl component="fieldset">
+                  <FormLabel component="legend" >{item.label}</FormLabel>
+                  <TextField
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    value={value || ''}
+                    ref={ref}
+                    size="small"
+                    error={invalid}
+                    helperText={error?.message}
+                    {...item.typeProps as TextFieldProps} />
+                </FormControl>
               )}
             />
           )
@@ -187,3 +191,58 @@ const FormList: FC<FormListProps> = (prop) => {
 }
 
 export default memo(FormList)
+
+// type FormList = {
+//   name: string,
+//   label?: string,
+//   type: "text" | "select" | "checkbox" | "radio" | "switch" | "custom",
+//   component?: React.ComponentType
+// }
+// const formList: FormListType[] = [{
+//   name: "username",
+//   label: "Username",
+//   type: "text",
+//   rules: {
+//     required: { value: true, message: "Username must be"}
+//   },
+//   typeProps: {
+//     InputLabelProps: {
+//       shrink: true
+//     }
+//   } as TextFieldProps
+// }, {
+//   name: "sex",
+//   label: "性别",
+//   type: "checkbox",
+//   selectList: [{
+//     label: '男',
+//     value: 'boy'
+//   }, {
+//     label: '女',
+//     value: 'girl'
+//   }],
+//   rules: {
+//     required: { value: true, message: "sex must be"}
+//   }
+// }, {
+//   name: "fruits",
+//   label: "性别",
+//   type: "radio",
+//   selectList: [{
+//     label: '榴莲',
+//     value: 'durian'
+//   }, {
+//     label: '香蕉',
+//     value: 'bananer'
+//   }],
+//   rules: {
+//     required: { value: true, message: "sex must be"}
+//   }
+// }, {
+//   name: "datePick",
+//   label: "我的时间",
+//   type: "datePick",
+//   rules: {
+//     required: { value: true, message: "sex must be"}
+//   }
+// }]
