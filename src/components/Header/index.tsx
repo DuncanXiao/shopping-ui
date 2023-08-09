@@ -1,24 +1,26 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useContext, useState } from 'react'
+import CommonContext from '@/contexts/common'
+import MobileHeader from './components/Mobile/index';
+import DesktopHeader from './components/Desktop/index';
+
+
+import styles from './index.module.scss'
 
 type Props = {
   children?: ReactNode
   title?: string
 }
 
-const Header = ({ children, title = 'This is the default title' }: Props) => (
-  <header>
-    <div></div>
-  </header>
-)
+const Header = ({ children, title = 'This is the default title' }: Props) => {
+  const common = useContext(CommonContext)
 
-// {
-//   "age": 18,
-//   "code": "3424324,23432,789787,12345",
-//   "dete": "2022-09-23 00:00:00",
-//   "name": "林某某",
-//   "org": "财务部",
-//   "sex": 0,
-//   "start": 1
-// }
+  return (
+    <header>
+      {
+        common.isMobile ? <MobileHeader /> : <DesktopHeader />
+      }
+    </header>
+  )
+}
 
 export default Header

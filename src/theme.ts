@@ -9,11 +9,12 @@ export const roboto = Roboto({
   display: 'swap',
   fallback: ['Helvetica', 'Arial', 'sans-serif'],
 });
-
+// 12c2e9
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#556cd6',
+      main: '#12c2e9',
+      contrastText: '#fff'
     },
     secondary: {
       main: '#19857b',

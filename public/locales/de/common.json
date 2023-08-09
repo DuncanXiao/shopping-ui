@@ -1,0 +1,11 @@
+{
+  "login": {
+    "formList_emailLabel": "2Email2",
+    "formList_passwordLabel": "Password2",
+    "formList_passwordError": "Password is required",
+    "formList_emailError": "Email address is required",
+    "formList_emailValidateError": "Please enter a valid email address",
+    "forgetPassword": "Forget your password?",
+    "createAccount": "Create a new account222"
+  }
+}

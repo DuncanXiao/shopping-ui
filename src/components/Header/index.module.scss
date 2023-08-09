@@ -1,0 +1,28 @@
+@import '@/styles/variables.modules.scss';
+
+.header-box {
+  display: flex;
+  padding: 10px 0px;
+  background-color: #12c2e9;
+  align-items: center;
+}
+
+.base-icon {
+  color: #fff;
+}
+
+.logo {
+  background-color: #fff;
+}
+
+.right-content {
+  width: 200px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media(min-width: $sm) {
+  .login-btn {
+    width: auto;
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "login": {
+    "formList_emailLabel": "Email",
+    "formList_passwordLabel": "Password",
+    "formList_passwordError": "Passwords must be required",
+    "formList_emailError": "Email address is required",
+    "formList_emailValidateError": "Please enter a valid email address",
+    "forgetPassword": "Forget your password?",
+    "createAccount": "Create a new account",
+    "registry_formList_usernameLabel": "Your name",
+    "registry_formList_usernameError": "name is required",
+    "registry_formList_prePasswordLabel": "Re-enter password",
+    "registry_formList_PasswordError": "Passwords must be at least 6 characters.",
+    "registry_formList_prePasswordError": "Passwords inconsistency"
+  }
+}

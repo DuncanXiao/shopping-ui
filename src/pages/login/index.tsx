@@ -1,51 +1,34 @@
 import { useMemo, useContext } from "react";
-import FormList from "@/components/FormList"
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-import { useForm } from 'react-hook-form';
-import Image from 'next/image';
-import useLocale from '@/utils/hooks/useLocale';
-import CommonContext from '@/contexts/common';
-import styles from './styles.module.css';
-import { getLoginFormList } from './config'
-import localContext from './i18n'
+import { GetStaticProps } from 'next'
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import Login from '@/components/Login'
 
-export default function Login() {
-  const { handleSubmit, control } = useForm({});
-  const { loginPage_i18n } = useLocale(localContext)
-  const common = useContext(CommonContext)
+import styles from './index.module.scss'
 
-  const formList = useMemo(() => {
-    return getLoginFormList(loginPage_i18n)
-  }, [loginPage_i18n])
+export default function LoginPage() {
+  const router = useRouter()
+  const { t } = useTranslation('common')
+  return (
+    <div>
+      <div className={styles.container}>
+        <Login />
+      </div>
+    </div>
+  )
+}
 
-  const onSubmit = (data: any) => {
+export const getStaticProps = async ({ locale }: any) => {
+  const props = await serverSideTranslations(locale, ['common'])
+  return {
+    props,
+    // if using the approach with the live translation download, meaning using i18next-locize-backend on server side,
+    // there is a reloadInterval for i18next-locize-backend that can be used to reload resources in a specific interval: https://github.com/locize/i18next-locize-backend#backend-options
+    // doing so it is suggested to also use the revalidate option, here:
+    // Next.js will attempt to re-generate the page:
+    // - When a request comes in
+    // - At most once every hour
+    // revalidate: 60 * 60, // in seconds
   }
-
-  return <div>
-    <Paper elevation={4} className={styles['login-card']}>
-      <Grid container spacing={2} columns={12} direction={'row'}>
-        <Grid item xs={12} sm={5}>
-          <Stack spacing={{ xs: 1, sm: 2 }} direction="column"  flexWrap="wrap">
-            <FormList formList={formList} control={control} />
-          </Stack>
-          <p className={styles['forget-password']}>{loginPage_i18n.forgetPassword_i18n}</p>
-          <div className={styles['btn-container']}>
-            <Button className={styles['login-btn']} variant="contained" onClick={handleSubmit(onSubmit)}>Login</Button>
-          </div>
-        </Grid>
-        <Grid item xs={12} sm={7}>
-          <Image
-            src="/profile.png"
-            width={500}
-            height={500}
-            alt="Picture of the author"
-          />
-        </Grid>
-      </Grid>
-    </Paper>
-      {common && common.isMobile ? 'true' : 'false'}
-  </div>
 }
