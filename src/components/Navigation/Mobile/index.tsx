@@ -1,34 +1,35 @@
 import { useState } from 'react'
-import MenuList from '@mui/material/MenuList';
-import MenuItem from '@mui/material/MenuItem';
+import { useSelector } from 'react-redux';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import TabPanel from '@mui/lab/TabPanel';
 import TabContext from '@mui/lab/TabContext';
 import MobileMenuList from '@/components/MenuList/Mobile';
+import type {CategoriesType} from '@/store/navigateSlice'
 import styles from './index.module.scss';
 
-const categories = [
-  {
-    id: '1',
-    name: 'Category 1',
-  },
-  {
-    id: '2',
-    name: 'Category 2',
-  },
-  {
-    id: '3',
-    name: 'Category 3',
-  },
-  {
-    id: '4',
-    name: 'Category 4',
-  }
-]
+// const categories = [
+//   {
+//     id: '1',
+//     name: 'Category 1',
+//   },
+//   {
+//     id: '2',
+//     name: 'Category 2',
+//   },
+//   {
+//     id: '3',
+//     name: 'Category 3',
+//   },
+//   {
+//     id: '4',
+//     name: 'Category 4',
+//   }
+// ]
 
 const Navigation = () => {
-  const [value, setValue] = useState(categories[0].id);
+  const [value, setValue] = useState('0');
+  const categories: CategoriesType[] = useSelector((state: any) => state.navigate.navigator);
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
@@ -43,17 +44,17 @@ const Navigation = () => {
           aria-label="scrollable prevent tabs example"
         >
           {
-            categories.map(c => (
-              <Tab key={c.id} label={c.name} value={c.id} />
+            categories.map((c, index: number) => (
+              <Tab key={c.id} label={c.name} value={`${index}`} />
             ))
           }
       </Tabs>
       {
-        categories.map(c => (
+        categories.map((c, index: number) => (
           <TabPanel classes={{
             root: styles['tab-panel']
-          }} key={c.id} value={c.id}>
-            <MobileMenuList id={c.id} isCurrennt={value === c.id} />
+          }} key={c.id}  value={`${index}`}>
+            <MobileMenuList id={c.id} isCurrennt={value === `${index}`} />
           </TabPanel>
         ))
       }

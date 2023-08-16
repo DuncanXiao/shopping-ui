@@ -7,7 +7,6 @@ import Stack from '@mui/material/Stack';
 import Drawer from '@mui/material/Drawer';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Divider from '@mui/material/Divider';
-
 import styles from './index.module.scss';
 
 const menues = [{
@@ -35,7 +34,7 @@ type menuesType = {
 }
 
 type MobileMenuListProps = {
-  id: string,
+  id: number,
   isCurrennt: boolean
 }
 
@@ -72,7 +71,7 @@ const MobileMenuList = (props: MobileMenuListProps) => {
                 sx={{width: '100%'}}
                 direction="row" alignItems="center" justifyContent="space-between">
                 <Typography variant="inherit" noWrap>
-                  {menu.name} {menu.name} {menu.name} {menu.name} {menu.name}
+                  {menu.name}
                 </Typography>
                 {
                   menu.children && menu.children.length &&
@@ -104,7 +103,7 @@ const MobileMenuList = (props: MobileMenuListProps) => {
                   sx={{width: '100%'}}
                   direction="row" alignItems="center" justifyContent="space-between">
                   <Typography variant="inherit" noWrap>
-                    {menu.name} {menu.name} {menu.name} {menu.name} {menu.name}
+                    {menu.name}
                   </Typography>
                 </Stack>
               </MenuItem>
