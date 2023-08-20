@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
 import Header from '@/components/Header'
+import styles from './index.module.scss'
 
 type Props = {
   children?: ReactNode
@@ -17,7 +18,9 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => (
       <link rel="icon" href="/favicon.ico" />
     </Head>
     <Header />
-    {children}
+    <div className={styles.main}>
+      {children}
+    </div>
     <footer>
       <hr />
       <span>I'm here to stay (Footer)</span>

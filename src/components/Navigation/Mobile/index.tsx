@@ -8,25 +8,6 @@ import MobileMenuList from '@/components/MenuList/Mobile';
 import type {CategoriesType} from '@/store/navigateSlice'
 import styles from './index.module.scss';
 
-// const categories = [
-//   {
-//     id: '1',
-//     name: 'Category 1',
-//   },
-//   {
-//     id: '2',
-//     name: 'Category 2',
-//   },
-//   {
-//     id: '3',
-//     name: 'Category 3',
-//   },
-//   {
-//     id: '4',
-//     name: 'Category 4',
-//   }
-// ]
-
 const Navigation = () => {
   const [value, setValue] = useState('0');
   const categories: CategoriesType[] = useSelector((state: any) => state.navigate.navigator);
@@ -34,7 +15,7 @@ const Navigation = () => {
     setValue(newValue);
   };
   return (
-    <>
+    <div className={styles['navigation']}>
      <TabContext value={value}>
       <Tabs
           value={value}
@@ -59,7 +40,7 @@ const Navigation = () => {
         ))
       }
      </TabContext>
-    </>
+    </div>
   )
 }
 

@@ -35,13 +35,14 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(store => async (context) => {
 
 function MyApp({ Component, pageProps, common }: TProps) {
   const { store, props }: any = wrapper.useWrappedStore(pageProps);
+
   return (
     <ThemeProvider theme={theme}>
       <CommonContext.Provider value={common}>
       <Provider store={store}>
         <PersistGate persistor={store.__persistor} loading={<div>Loading</div>}>
           <Layout>
-            <Component {...props.pageProps} />
+            <Component {...props} />
           </Layout>
         </PersistGate>
       </Provider>
