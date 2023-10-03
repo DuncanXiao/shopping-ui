@@ -1,6 +1,7 @@
 import { configureStore, ThunkAction, Action, combineReducers, ThunkDispatch } from "@reduxjs/toolkit";
 import { authSlice } from "./authSlice";
 import navigateSlice from "./navigateSlice";
+import productSlice from "./productSlice";
 import { createWrapper } from "next-redux-wrapper";
 import {
   persistReducer,
@@ -13,11 +14,12 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const rootReducer = combineReducers({
   [authSlice.name]: authSlice.reducer,
   [navigateSlice.name]: navigateSlice.reducer,
+  [productSlice.name]: productSlice.reducer,
 });
 
 const makeConfiguredStore = () =>
@@ -65,3 +67,7 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 export const wrapper = createWrapper<AppStore>(makeStore);
 
 export const useAppDispatch = () => useDispatch<ThunkDispatch<any, any, any>>();
+
+export {
+  useSelector
+}
