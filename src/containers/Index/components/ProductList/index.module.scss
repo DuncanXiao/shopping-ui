@@ -1,4 +1,7 @@
 .product-list {
-  display: flex;
   grid-template-columns: 1fr 2fr;
+}
+
+.product-item {
+  padding: 10px;
 }

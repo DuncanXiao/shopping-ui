@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
 import useLegacyEffect from '@/utils/hooks/useLegacyEffect';
-// import VirtualizedWrapper from '@/components/VirtualizedWrapper';
 import VirtualizedCollectionWrapper from '@/components/VirtualizedCollectionWrapper';
 import { useAppDispatch, useSelector } from "@/store";
 import { selectProducts, getProducts } from "@/store/productSlice";
 import MultiActionAreaCard from '@/components/MultiActionAreaCard';
-import {Collection, AutoSizer, WindowScroller} from 'react-virtualized';
 import 'react-virtualized/styles.css';
 
 import styles from './index.module.scss';
@@ -19,8 +17,8 @@ type ProductInfo = {
   priceUnit: string;
 }
 
-const cellWidth = 200;
-const cellHeight = 50;
+const cellWidth = 187.5;
+const cellHeight = 265.5;
 const ProductList = () => {
   const products = useSelector(selectProducts);
   const dispatch = useAppDispatch();
@@ -46,18 +44,33 @@ const ProductList = () => {
         }}
         cellRenderer={({ index, key, style }) => {
           return (
-            <div key={key} style={style} className="row">
-              {productList[index].id} <br />
-              {productList[index].name}
+            <div key={key} style={style} className={styles['product-item']}>
+              <MultiActionAreaCard
+                mediaType="img"
+                mediaPath={productList[index].imgPath}
+                mediaProps={{
+                  alt: productList[index].name,
+                  fill: true
+                }}
+              >
+                <div>
+                  {productList[index].name}
+                </div>
+                <div>
+                  {productList[index].price}
+                  { Number(productList[index].amount) <= 5 ? <span>Only {productList[index].amount} left</span> : '' }
+                </div>
+              </MultiActionAreaCard>
             </div>
           )
         }}
+        columns={2}
         cellCount={productList.length}
         cellHeight={cellHeight}
         cellWidth={cellWidth}
-        offsetBottom={30}
+        offsetBottom={0}
       />
-}
+      }
     </div>
   )
 }

@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import NextImage, { ImageProps } from 'next/image'
 import CommonContext from '@/contexts/common'
+import styles from './index.module.scss'
 
 export type DImageProps = {
   baseUrl?: string
@@ -9,10 +10,20 @@ export type DImageProps = {
 const Image = (props: DImageProps) => {
   const common = useContext(CommonContext)
   return (
-    <NextImage
-      {...props}
-      src={`${props.baseUrl || common.staticNextHost}${props.src}`}
-    />
+    props.fill ? (
+      <div className={styles.image}>
+        <NextImage
+          style={{objectFit: "contain"}}
+          {...props}
+          src={`${props.baseUrl || common.staticNextHost}${props.src}`}
+        />
+      </div>
+    ) : (
+      <NextImage
+        {...props}
+        src={`${props.baseUrl || common.staticNextHost}${props.src}`}
+      />
+    )
   )
 }
 
