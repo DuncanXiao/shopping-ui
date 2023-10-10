@@ -1,9 +1,11 @@
+import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide, SwiperClass } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Image from 'next/image'
 import CommonContext from '@/contexts/common'
+import ProductList from './components/ProductList';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
@@ -12,7 +14,7 @@ type IndexProps = {
 }
 
 const Index = (props: IndexProps) => {
-  
+
   return (
     <>
       <Swiper
@@ -33,7 +35,7 @@ const Index = (props: IndexProps) => {
               >
                 <Image
                   fill={true}
-                  src={b.imgUrl}
+                  src={b.imgPath}
                   alt={`banner${b.id}`}
                 />
               </Box>
@@ -41,6 +43,7 @@ const Index = (props: IndexProps) => {
           ))
         }
       </Swiper>
+      <ProductList />
     </>
   )
 }

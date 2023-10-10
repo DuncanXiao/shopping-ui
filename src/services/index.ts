@@ -26,11 +26,34 @@ export const getHomeData = () => {
     data: {
       banners: [{
         id: 1,
-        imgUrl: '/static/images/messis.jpg',
+        imgPath: '/static/images/messis.jpg',
       }, {
         id: 2,
-        imgUrl: '/static/images/messis2.jpg',
+        imgPath: '/static/images/messis2.jpg',
       }]
     }
+  })
+}
+
+export const getProducts = (payload: any) => {
+  return new Promise((resolve, reject) => {
+    const arry = new Array(payload.pageSize)
+    for (let i = 0; i < arry.length; i++) {
+      const id = (payload.page - 1) * payload.pageSize + i
+      arry[i] = {
+        id,
+        name: 'xxx'+ id,
+        amount: 20,
+        price: 20,
+        priceUnit: '$',
+        imgPath: payload.page % 2 ? '/static/images/messis.jpg' : '/static/images/messis2.jpg',
+      }
+    }
+    setTimeout(() => {
+      return resolve({
+        data: arry,
+        ...payload
+      })
+    }, 3000)
   })
 }
