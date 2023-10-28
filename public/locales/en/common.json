@@ -12,5 +12,11 @@
     "registry_formList_prePasswordLabel": "Re-enter password",
     "registry_formList_PasswordError": "Passwords must be at least 6 characters.",
     "registry_formList_prePasswordError": "Passwords inconsistency"
+  },
+  "components": {
+    "ProductRating_headerName": "Reviews"
+  },
+  "productDetail": {
+
   }
 }

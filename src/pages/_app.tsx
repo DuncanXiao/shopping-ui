@@ -10,6 +10,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 import * as services from "@/services";
 import navigateSlice from "@/store/navigateSlice";
+import { StyledEngineProvider } from '@mui/material/styles';
 
 import nextI18NextConfig from '../../next-i18next.config.js'
 import theme from '../theme';
@@ -41,9 +42,11 @@ function MyApp({ Component, pageProps, common }: TProps) {
       <CommonContext.Provider value={common}>
       <Provider store={store}>
         <PersistGate persistor={store.__persistor} loading={<div>Loading</div>}>
-          <Layout>
-            <Component {...props} />
-          </Layout>
+          <StyledEngineProvider injectFirst>
+            <Layout>
+              <Component {...props} common={common} />
+            </Layout>
+          </StyledEngineProvider>
         </PersistGate>
       </Provider>
       </CommonContext.Provider>

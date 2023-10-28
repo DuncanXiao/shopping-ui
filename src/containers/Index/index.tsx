@@ -10,7 +10,9 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 type IndexProps = {
-  data: {}
+  data: {
+    [property : string]: any
+  }
 }
 
 const Index = (props: IndexProps) => {
@@ -25,7 +27,7 @@ const Index = (props: IndexProps) => {
         navigation={true}
       >
         {
-          props.data.banners.map((b) => (
+          props.data.banners.map((b: any) => (
             <SwiperSlide key={b.id}>
               <Box
                 sx={{

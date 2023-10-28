@@ -24,7 +24,24 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: roboto.style.fontFamily,
+    fontFamily: roboto.style.fontFamily
+  },
+  components: {
+    MuiContainer: {
+      styleOverrides: {
+        root: {
+          paddingLeft: '15px',
+          paddingRight: '15px'
+        }
+      }
+    },
+    MuiTypography: {
+      styleOverrides: {
+        body1: {
+          fontSize: '16px'
+        }
+      }
+    }
   },
   breakpoints: {
     values: {
