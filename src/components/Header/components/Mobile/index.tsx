@@ -29,7 +29,7 @@ const MobileHeader = () => {
         <Image
           className={styles['logo']}
           src={`${common.staticNextHost}/static/images/logo2.svg`}
-          width={250}
+          width={210}
           height={47.8}
           alt='logo'
         />
