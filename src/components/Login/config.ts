@@ -1,7 +1,5 @@
 import { FormListType } from "@/components/FormList"
 import { isEmail } from '@/utils/validate'
-import { useTranslation } from 'next-i18next'
-import { type } from "os"
 
 export const getLoginFormList = (t: any) => {
   const formList: FormListType[] = [{
