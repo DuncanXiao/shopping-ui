@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form'
 import Image from 'next/image'
 import classnames from 'classnames';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import * as services from '@/services'
 import {getLoginFormList, getRegisterFormList} from './config'
 import styles from './styles/index.module.scss'
 export default function Login() {
@@ -32,6 +33,7 @@ export default function Login() {
   }
 
   const handleRegistry = () => {
+    // registryUser()
     setOpenRegistry(!openRegistry);
   }
 

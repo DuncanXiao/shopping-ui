@@ -140,3 +140,7 @@ export const getProductReviews = (payload: any) => {
     }, 3000)
   })
 }
+
+export const registryUser = (data: any) => {
+  return axios.post('/auth/user/register', data)
+}

@@ -35,7 +35,7 @@ export const getLoginFormList = (t: any) => {
 
 export const getRegisterFormList = (t: any) => {
   const formList: FormListType[] = [{
-    name: "userName",
+    name: "username",
     label: t('login.registry_formList_usernameLabel'),
     type: "text",
     rules: {

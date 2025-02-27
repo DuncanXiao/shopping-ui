@@ -17,6 +17,14 @@ const nextConfig = {
   },
   sassOptions: {
     includePaths: [path.join(__dirname, 'src')],
+  },
+  async rewrites() {
+    return [
+      {
+          source: '/api/:path*',
+          destination: 'http://location:3000/:path*',
+      },
+    ];
   }
 }
 
